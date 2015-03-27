@@ -5,6 +5,11 @@
     "require": {
         "bolt/bolt": ">=2.0.0,<3.0.0"
     },
+    "keywords" : [
+        "Flickr",
+        "image",
+        "gallery"
+    ],
     "license": "MIT",
     "authors": [
         {
