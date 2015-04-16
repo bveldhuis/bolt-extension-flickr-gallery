@@ -5,7 +5,7 @@ A basic extension displaying a simple image gallery, based on a user public Flic
 
 I needed it for a personnal project, but it might help someone out there sometime.
 
-Just add a flickrgallery.yml (or flickrgallery.[your-theme].yml) configuration file in your app/config/extensions folder with the following parameters :
+After installation, just edit the newly created flickrgallery.breizhtorm.yml configuration file in your app/config/extensions folder with the following parameters :
  
 * __flickr_api_key__* : Your Flickr API key (you can get one here https://www.flickr.com/services/apps/create/apply/)
 * __flickr_secret__* : Your Flickr Secret
