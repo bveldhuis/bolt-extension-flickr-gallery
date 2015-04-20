@@ -39,32 +39,29 @@ class Extension extends BaseExtension
             return;
         }
 
-        ini_set('include_path', __DIR__ . '/lib/');
-        require_once __DIR__ . '/lib/Phlickr/Api.php';
-
         $images = array();
 
+        ini_set('include_path', __DIR__ . '/lib/');
+        require_once __DIR__ . '/lib/phpFlickr/phpFlickr.php';
+
         try{
-            $api = new \Phlickr_Api($this->config['flickr_api_key'], $this->config['flickr_secret']);
+            $f = new \phpFlickr($this->config['flickr_api_key'], $this->config['flickr_secret']);
 
-            $xml = $api->ExecuteMethod(
-                'flickr.people.getPublicPhotos',
-                array(
-                    'user_id' => $this->config['flickr_user_id'],
-                    'page' => 1,
-                    'per_page' => $this->config['flickr_image_count']
-                )
-            );
+            $response = $f->people_getPublicPhotos($this->config['flickr_user_id'],1,$this->config['flickr_image_count']);
 
-            $response = simplexml_load_string($xml);
- 
-            foreach($response->photos->photo as $photo){
-                $image = array(
-                    "url" => 'http://farm'.$photo['farm'].'.staticflickr.com/'.$photo['server'].'/'.$photo['id'].'_'.$photo['secret'].'_'.$this->config['flickr_image_size'].'.jpg',
-                    "title" => $photo['title'],
-                    "link" => 'http://www.flickr.com/photos/'.$this->config['flickr_user_id'].'/'.$photo['id'],
-                );
-                array_push($images, $image);
+            //error_log(print_r($response, true));
+
+            if (!empty($response)){
+                foreach($response['photos']['photo'] as $photo){
+                    $image = array(
+                        "url" => 'http://farm'.$photo['farm'].'.staticflickr.com/'.$photo['server'].'/'.$photo['id'].'_'.$photo['secret'].'_'.$this->config['flickr_image_size'].'.jpg',
+                        "title" => $photo['title'],
+                        "link" => 'http://www.flickr.com/photos/'.$this->config['flickr_user_id'].'/'.$photo['id'],
+                    );
+                    array_push($images, $image);
+                }
+            }else{
+                echo $this->config['error_message']."\n";
             }
 
         } catch (Exception $e) {
