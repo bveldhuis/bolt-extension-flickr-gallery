@@ -33,7 +33,7 @@
                         
                         {{image['title']}}
 
-                        {% for title_container in title_containers %}
+                        {% for title_container in title_containers|reverse %}
                           </{{title_container}}>
                         {% endfor %}
 
@@ -43,13 +43,13 @@
                     </a>
                 {% endif %}
 
-            {% for image_container in image_containers %}
+            {% for image_container in image_containers|reverse %}
     		  </{{image_container}}>
             {% endfor %}
 
     	{% endfor %}
     
-    {% for images_container in images_containers %}
+    {% for images_container in images_containers|reverse %}
     	</{{images_container|trim}}>
     {% endfor %}
 
