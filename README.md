@@ -23,6 +23,10 @@ After installation, just edit the newly created flickrgallery.breizhtorm.yml con
 
 *Mandatory fields
 
+Then just add the following twig function in your template to display the gallery : 
+
+    {{ flickrgallery() }}
+
 Note that container tags (wrapper, image & title) can be cascaded using commas, and so are classes. This means that images_container could be 'div,ul' and images_containe_class 'big-wrapper,wrapper'. As a result, you will get the following HTML code :
 
     <div class="big-wrapper">
