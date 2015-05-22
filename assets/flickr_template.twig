@@ -23,7 +23,7 @@
                     <a href="{{ image['link'] }}" target="_blank">
                 {% endif %}
 
-    			     <img src="{{ image['url'] }}"/>
+    			     <img src="{{ image['url'] }}" alt="{{image['title']|escape('html_attr')}}"/>
 
                     {% if title_container != '' %}
 
@@ -33,7 +33,7 @@
                         
                         {{image['title']}}
 
-                        {% for title_container in title_containers %}
+                        {% for title_container in title_containers|reverse %}
                           </{{title_container}}>
                         {% endfor %}
 
@@ -43,13 +43,13 @@
                     </a>
                 {% endif %}
 
-            {% for image_container in image_containers %}
+            {% for image_container in image_containers|reverse %}
     		  </{{image_container}}>
             {% endfor %}
 
     	{% endfor %}
     
-    {% for images_container in images_containers %}
+    {% for images_container in images_containers|reverse %}
     	</{{images_container|trim}}>
     {% endfor %}
 
