@@ -34,4 +34,4 @@ Note that container tags (wrapper, image & title) can be cascaded using commas, 
         </ul>
     </div>
 
-And if it doesn't fit yor needs, just go with your own template.
+And if it doesn't fit your needs, just go with your own template.
