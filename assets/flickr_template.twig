@@ -20,7 +20,7 @@
             {% endfor %}
 
                 {% if show_link %}
-                    <a href="{{ image['link'] }}" target="_blank">
+                    <a href="{{ image['link'] }}" target="_blank" rel="nofollow">
                 {% endif %}
 
     			     <img src="{{ image['url'] }}" alt="{{image['title']|escape('html_attr')}}"/>
