@@ -1,56 +1,18 @@
 {% if images %}
 
-    {% set images_containers = images_container|split(',') %}
-    {% set images_containers_classes = images_container_class|split(',') %}
-
-    {% set image_containers = image_container|split(',') %}
-    {% set image_containers_classes = image_container_class|split(',') %}
-
-    {% set title_containers = title_container|split(',') %}
-    {% set title_containers_classes = title_container_class|split(',') %}
-
-    {% for images_container in images_containers %}
-    	<{{images_container|trim}}{% if images_containers_classes[loop.index0] != '' %} class="{{images_containers_classes[loop.index0]}}"{% endif %}>
-    {% endfor %}
+    <ul>
 
     	{% for image in images %}
 
-            {% for image_container in image_containers %}
-    		  <{{image_container|trim}}{% if image_containers_classes[loop.index0] != '' %} class="{{image_containers_classes[loop.index0]}}"{% endif %}>
-            {% endfor %}
-
-                {% if show_link %}
-                    <a href="{{ image['link'] }}" target="_blank" rel="nofollow">
-                {% endif %}
-
-    			     <img src="{{ image['url'] }}" alt="{{image['title']|escape('html_attr')}}"/>
-
-                    {% if title_container != '' %}
-
-                        {% for title_container in title_containers %}
-                          <{{title_container|trim}}{% if title_containers_classes[loop.index0] != '' %} class="{{title_containers_classes[loop.index0]}}"{% endif %}>
-                        {% endfor %}
-                        
-                        {{image['title']}}
-
-                        {% for title_container in title_containers|reverse %}
-                          </{{title_container}}>
-                        {% endfor %}
-
-                    {% endif %}
-
-                {% if show_link %}
-                    </a>
-                {% endif %}
-
-            {% for image_container in image_containers|reverse %}
-    		  </{{image_container}}>
-            {% endfor %}
+            <li>
+                <a href="{{ image['link'] }}" target="_blank" rel="nofollow">
+                    <img src="{{ image['url'] }}" alt="{{image['title']|escape('html_attr')}}"/>
+                    <div>{{image['title']}}</div>
+                </a>
+            </li>
 
     	{% endfor %}
     
-    {% for images_container in images_containers|reverse %}
-    	</{{images_container|trim}}>
-    {% endfor %}
+    </ul>
 
 {% endif %}
