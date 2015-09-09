@@ -70,16 +70,11 @@ class Extension extends BaseExtension
             return;
         }
 
-        $this->app['twig.loader.filesystem']->addPath(__DIR__ . '/assets/');
-        $html = $this->app['render']->render('flickr_template.twig', array(
+        $template = $this->config['template'];
+
+        $this->app['twig.loader.filesystem']->addPath(__DIR__);
+        $html = $this->app['render']->render($template, array(
             'images'=>$images,
-            'images_container'=>$this->config['images_container'],
-            'images_container_class'=>$this->config['images_container_class'],
-            'image_container'=>$this->config['image_container'],
-            'image_container_class'=>$this->config['image_container_class'],
-            'title_container'=>$this->config['title_container'],
-            'title_container_class'=>$this->config['title_container_class'],
-            'show_link'=>$this->config['show_link'],
         ));
         return new \Twig_Markup($html, 'UTF-8');
     }
@@ -92,13 +87,7 @@ class Extension extends BaseExtension
             'flickr_user_id' => '',
             'flickr_image_size' => 'q',
             'flickr_image_count' => '10',
-            'images_container' => 'ul',
-            'images_container_class' => '',
-            'image_container' => 'li',
-            'image_container_class' => '',
-            'title_container' => '',
-            'title_container_class' => '',
-            'show_link' => false,
+            'template' => '',
             'error_message' => '',
         );
     }
