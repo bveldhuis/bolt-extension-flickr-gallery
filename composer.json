@@ -2,6 +2,7 @@
     "name": "breizhtorm/flickrgallery",
     "description": "A simple Flickr images gallery.",
     "type": "bolt-extension",
+    "minimum-stability": "dev",
     "require": {
         "bolt/bolt": ">=2.0.0,<3.0.0"
     },
