@@ -1,20 +1,12 @@
-#flickr_api_key: YOU-FLICKR-API-KEY
-#flickr_secret: YOU-FLICKR-SECRET
+flickr_api_key: YOU-FLICKR-API-KEY
+flickr_secret: YOU-FLICKR-SECRET
+flickr_user_id: THE-USER-ID
 
-#flickr_user_id: THE-USER-ID
-
-#flickr_image_size: q
+flickr_image_size: q
 # see https://www.flickr.com/services/api/misc.urls.html
 
-#flickr_image_count: 10
+flickr_image_count: 10
 
-#images_container: ul
-#images_container_class: 
-#image_container: li
-#image_container_class: 
-#title_container: div
-#title_container_class: 
+template: assets/flickr_template.twig
 
-#show_link: false
-
-#error_message: '<div>Error loading images</div>'
+error_message: '<div>Error loading images</div>'
