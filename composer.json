@@ -32,6 +32,6 @@
     
     "extra": {
         "bolt-assets": "assets",
-        "bolt-icon": "assets/icon-flickrgallery.png",
+        "bolt-icon": "assets/icon-flickrgallery.png"
     }
 }
