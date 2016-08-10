@@ -27,6 +27,6 @@
     
     "extra": {
         "bolt-class": "Bolt\\Extension\\Bveldhuis\\PicasaGallery\\PicasaGalleryExtension",
-		"bolt-icon": "bolt-icon.png",
+		"bolt-icon": "bolt-icon.png"
     }
 }
