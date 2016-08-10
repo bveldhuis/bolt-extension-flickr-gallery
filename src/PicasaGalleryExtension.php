@@ -4,11 +4,14 @@ namespace Bolt\Extension\Bveldhuis\PicasaGallery;
 
 use Bolt\Application;
 use \Bolt\Extension\SimpleExtension;
+use Silex\ControllerCollection;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PicasaGalleryExtension extends SimpleExtension {
 
     const NAME = 'PicasaGallery';
-    
+
     protected function registerTwigFunctions() {
         return [
             'picasaAlbums' => 'twigPicasaAlbums',
@@ -16,12 +19,20 @@ class PicasaGalleryExtension extends SimpleExtension {
         ];
     }
 
+    protected function registerFrontendRoutes(ControllerCollection $collection) {
+        $collection->match('/photos/{albumID}', [$this, 'showPicasaAlbum']);
+    }
+
+    public function showPicasaAlbum(Application $app, Request $request, $albumID) {
+        return new Response($this->twigPicasaPhotos($albumID));
+    }
+
     /**
      * Render the list of albums
      */
     public function twigPicasaAlbums() {
         $config = $this->getConfig();
-        
+
         if ($config['picasa_username'] == '') {
             error_log("[Bolt/" . PicasaGalleryExtension::NAME . "] Picasa username not configured");
             return;
@@ -47,10 +58,10 @@ class PicasaGalleryExtension extends SimpleExtension {
                     $thumbnail = substr($thumbnail, 0, -2);
 
                     $album = array(
-                    "albumID" => $albumID,
-                    "thumb" => $thumbnail,
-                    "title" => $title,
-                    "pubDate" => $pubDate
+                        "albumID" => $albumID,
+                        "thumb" => $thumbnail,
+                        "title" => $title,
+                        "pubDate" => $pubDate
                     );
 
                     array_push($albums, $album);
@@ -73,9 +84,9 @@ class PicasaGalleryExtension extends SimpleExtension {
     /**
      * Render the photo-gallery for one album
      */
-    public function twigPicasaPhotos($albumID) {
+    private function twigPicasaPhotos($albumID) {
         $config = $this->getConfig();
-        
+
         if ($config['picasa_username'] == '') {
             error_log("[Bolt/" . PicasaGalleryExtension::NAME . "] Picasa username not configured");
             return;
@@ -92,24 +103,33 @@ class PicasaGalleryExtension extends SimpleExtension {
             $xml = @simplexml_load_file($albumUrl);
 
             if ($xml) {
+                $albumTitle = $xml->channel->title;
+                $albumThumb = $xml->channel->image->url;
+
                 foreach ($xml->channel->item as $item) {
 
                     $title = trim($item->title);
 
                     $thumbnail = strip_tags($item->description, "<img>");
                     preg_match("/src=\"(.*)\" /", $thumbnail, $thumbnail);
-                    $thumbnail = $thumbnail[0];
+                    $thumbnail = $thumbnail[1];
 
                     $url = $item->enclosure["url"];
 
+                    $attributes = $item->children('http://search.yahoo.com/mrss/')->group->content->attributes();
+                    $width = $attributes["width"];
+                    $height = $attributes["height"]; 
+                    
                     // Force all connections over secure https
                     $thumbnail = str_replace("http://", "https://", $thumbnail);
                     $url = str_replace("http://", "https://", $url);
 
                     $photo = array(
-                    "url" => $url,
-                    "thumb" => $thumbnail,
-                    "title" => $title
+                        "url" => $url,
+                        "thumb" => $thumbnail,
+                        "title" => $title,
+                        "width" => $width,
+                        "height" => $height
                     );
 
                     array_push($photos, $photo);
@@ -126,6 +146,12 @@ class PicasaGalleryExtension extends SimpleExtension {
         }
 
         $template = $config['template_album_photos'];
-        return $this->renderTemplate($template, array('photos' => $photos));
+        return $this->renderTemplate($template, array(
+                    'albumID' => $albumID,
+                    'title' => $albumTitle,
+                    'thumb' => $albumThumb,
+                    'photos' => $photos
+        ));
     }
+
 }
