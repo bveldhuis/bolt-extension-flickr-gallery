@@ -1,38 +1,32 @@
 {
-    "name": "breizhtorm/flickrgallery",
-    "description": "A simple Flickr images gallery.",
+    "name": "bveldhuis/picasagallery",
+    "description": "A simple Picasa(web) images gallery.",
     "type": "bolt-extension",
     "minimum-stability": "dev",
     "require": {
-        "bolt/bolt": ">=2.0.0,<3.0.0"
+        "bolt/bolt": ">=3.0.0,<4.0.0"
     },
     "keywords" : [
-        "Flickr",
+        "Picasa",
+		"images",
         "image",
+		"photos",
         "gallery"
     ],
     "license": "MIT",
     "authors": [
         {
-            "name": "Breizhtorm", 
-            "email": "welcome@breizhtorm.fr", 
-            "homepage": "http://www.breizhtorm.fr"
+            "name": "BVeldhuis"
         }
     ],
     "autoload": {
-        "files": [
-            "init.php"
-        ],
         "psr-4": {
-            "Bolt\\Extension\\Breizhtorm\\FlickrGallery\\" : [
-                "",
-                "src/"
-            ]
+            "Bolt\\Extension\\Bveldhuis\\PicasaGallery\\" : "src"
         }
     },
     
     "extra": {
-        "bolt-assets": "assets",
-        "bolt-icon": "assets/icon-flickrgallery.png"
+        "bolt-class": "Bolt\\Extension\\Bveldhuis\\PicasaGallery\\PicasaGalleryExtension",
+		"bolt-icon": "bolt-icon.png",
     }
 }

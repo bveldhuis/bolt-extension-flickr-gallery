@@ -1,0 +1,6 @@
+picasa_username: my-username
+
+template_albums_list: assets/picasa_template_albums.twig
+template_album_photos: assets/picasa_template_photos.twig
+
+error_message: '<div>Error loading images</div>'

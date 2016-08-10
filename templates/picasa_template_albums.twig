@@ -1,0 +1,18 @@
+{% if albums %}
+
+    <ul>
+
+    	{% for album in albums %}
+
+            <li>
+                <a href="/{{ album['albumID'] }}">
+                    <img src="{{ album['thumb'] }}" alt="{{album['title']|escape('html_attr')}}"/>
+                    <div>{{album['title']}}</div>
+                </a>
+            </li>
+
+    	{% endfor %}
+    
+    </ul>
+
+{% endif %}
