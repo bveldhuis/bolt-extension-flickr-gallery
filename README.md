@@ -1,5 +1,7 @@
 # Bolt.cm Picasa Image Gallery Extension #
 
+* UNFORTUNATELY I did not (yet) get this extension working with bolt *
+
 A basic extension displaying an image gallery, based on a user public Picasaweb images.
 
 Just add the following twig function in your template to display the gallery: 
